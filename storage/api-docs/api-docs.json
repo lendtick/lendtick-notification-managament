@@ -1,0 +1,83 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Service Notification - AkulakuAstra",
+        "contact": {
+            "email": "lutfi@awanesia.com"
+        },
+        "version": "1.0.0"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/web/svc-notif/public/send": {
+            "post": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Notifications",
+                "description": "Send Notification Lendtick",
+                "operationId": "auth",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "To Recieve",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cc",
+                        "in": "query",
+                        "description": "CC email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "subject",
+                        "in": "query",
+                        "description": "Subject Notification",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "query",
+                        "description": "Body Notification",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type Notification",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "attachment",
+                        "in": "query",
+                        "description": "Attachment : fullpath",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

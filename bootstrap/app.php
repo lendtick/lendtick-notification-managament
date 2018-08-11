@@ -37,6 +37,7 @@ $app->withEloquent();
 | your own bindings here if you like or you can make another file.
 |
 */
+$app->configure('swagger-lume');
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
@@ -79,6 +80,7 @@ $app->singleton(
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(\SwaggerLume\ServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
