@@ -13,7 +13,7 @@ class VersionsController extends Controller
      *     schemes={"http","https"},
      *     @SWG\Info(
      *         version="1.0.0",
-     *         title="Service Notification - AkulakuAstra",
+     *         title="Service Notification - Lendtick",
      *         @SWG\Contact(
      *             email="lutfi@awanesia.com"
      *         ),
