@@ -13,7 +13,7 @@
         "https"
     ],
     "paths": {
-        "/web/svc-notif/public/send": {
+        "/send": {
             "post": {
                 "tags": [
                     "Notifications"
