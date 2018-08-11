@@ -19,6 +19,66 @@ class MailController extends Controller
         $this->notifRepo = $notifRepo;
     }
 
+     /**
+    * @SWG\Post(
+    *     path="/send", 
+    *     description="Send Notification Lendtick",
+    *     operationId="auth",
+    *     consumes={"application/json"},
+    *     produces={"application/json"},
+    *     @SWG\Parameter(
+    *         description="To Recieve",
+    *         in="query",
+    *         name="to",
+    *         required=true,
+    *         type="string"
+    *     ),
+    *     @SWG\Parameter(
+    *         description="CC email",
+    *         in="query",
+    *         name="cc",
+    *         required=false,
+    *         type="string"
+    *     ), 
+     *     @SWG\Parameter(
+    *         description="Subject Notification",
+    *         in="query",
+    *         name="subject",
+    *         required=true,
+    *         type="string"
+    *     ), 
+     *     @SWG\Parameter(
+    *         description="Body Notification",
+    *         in="query",
+    *         name="body",
+    *         required=true,
+    *         type="string"
+    *     ), 
+     *     @SWG\Parameter(
+    *         description="Type Notification",
+    *         in="query",
+    *         name="type",
+    *         required=true,
+    *         type="string"
+    *     ), 
+     *     @SWG\Parameter(
+    *         description="Attachment : fullpath",
+    *         in="query",
+    *         name="attachment",
+    *         required=false,
+    *         type="string"
+    *     ), 
+    *     @SWG\Response(
+    *         response="200",
+    *         description="successful"
+    *     ),
+    *     summary="Notifications",
+    *     tags={
+    *         "Notifications"
+    *     }
+    * )
+    * */
+
     public function index(){
         try{
             $status   = 200;
@@ -35,15 +95,15 @@ class MailController extends Controller
     public function send(Request $request){  
 
         try {
-            if(empty($request->json()->all())) throw New \Exception('Params not found', 500);
+            if(empty($request->json())) throw New \Exception('Params not found', 500);
 
             $this->validate($request, [
                 'to'            => 'required|email',
                 'subject'       => 'required',
-                'cc'            => '',
+                'cc'            => 'nullable',
                 'body'          => 'required',
                 'type'          => 'required',
-                'attachment'    => ''
+                'attachment'    => 'nullable'
             ]);  
 
             $data = [
@@ -51,7 +111,7 @@ class MailController extends Controller
                 'subject' => $request->subject,
                 'body' => $request->body,
                 'to' => $request->to,
-                'attachment' => $request->attachment,
+                'attachment' => !empty($request->attachment) ? $request->attachment : null,
                 'send_date' => date('Y-m-d H:i:s')
             ];
 
