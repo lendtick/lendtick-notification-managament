@@ -27,6 +27,13 @@ class MailController extends Controller
     *     consumes={"application/json"},
     *     produces={"application/json"},
     *     @SWG\Parameter(
+    *         description="Token Authorization",
+    *         in="header",
+    *         name="Authorization",
+    *         required=true,
+    *         type="string"
+    *     ),
+    *     @SWG\Parameter(
     *         description="To Recieve",
     *         in="query",
     *         name="to",
@@ -81,29 +88,29 @@ class MailController extends Controller
 
     public function index(){
         try{
-            $status   = 200;
+            $status   = 1;
+            $httpcode = 200;
             $data     = $this->notifRepo->all();
             $errorMsg = null;
         }catch(\Exception $e){
-            $status   = $e->getCode() ? $e->getCode() : 500;;
+            $status   = 0;
+            $httpcode = 400;
             $data     = null;
             $errorMsg = $e->getMessage();
         }
-        return response()->json(Api::format($status, $data, $errorMsg), $status);
+        return response()->json(Api::format($status, $data, $errorMsg), $httpcode);
     } 
 
-    public function send(Request $request){  
+    public function send(Request $request){
 
         try {
             if(empty($request->json())) throw New \Exception('Params not found', 500);
 
             $this->validate($request, [
                 'to'            => 'required|email',
-                'subject'       => 'required',
-                'cc'            => 'nullable',
+                'subject'       => 'required', 
                 'body'          => 'required',
-                'type'          => 'required',
-                'attachment'    => 'nullable'
+                'type'          => 'required'
             ]);  
 
             $data = [
@@ -119,17 +126,19 @@ class MailController extends Controller
             $send = Mail::to($request->to)->send(new SendEmail($data)); 
             
             $this->notifRepo->create($data);
-            $status   = 200;
+            $status   = 1;
+            $httpcode = 200;
             $data     = 'Berhasil Kirim';  
             $errorMsg = null;
 
         }catch(\Exception $e){
-            $status   = $e->getCode() ? $e->getCode() : 500;
+            $status   = 0; //$e->getCode() ? $e->getCode() : 500;
+            $httpcode = 400;
             $data     = null;
             $errorMsg = $e->getMessage();
         } 
 
-        return response()->json(Api::format($status, $data, $errorMsg), $status); 
+        return response()->json(Api::format($status, $data, $errorMsg), $httpcode); 
     }
 
 }

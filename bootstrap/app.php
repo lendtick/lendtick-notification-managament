@@ -68,6 +68,10 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+$app->routeMiddleware([
+    'token_validate' => App\Http\Middleware\TokenValidate::class,
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers

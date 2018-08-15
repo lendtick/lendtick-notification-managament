@@ -46,10 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        $status   = 405;
+        $status   = false;
+        $httpcode = 400;
         $data     = 'Method Not Allowed';  
         $errorMsg = null;
-        // return parent::render($request, $e);
-        return response()->json(Api::format($status, $data, $errorMsg), $status); 
+        return parent::render($request, $e);
+        // return response()->json(Api::format($status, $data, $errorMsg), $httpcode); 
     }
 }
