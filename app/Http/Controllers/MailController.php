@@ -25,14 +25,7 @@ class MailController extends Controller
     *     description="Send Notification Lendtick",
     *     operationId="auth",
     *     consumes={"application/json"},
-    *     produces={"application/json"},
-    *     @SWG\Parameter(
-    *         description="Token Authorization",
-    *         in="header",
-    *         name="Authorization",
-    *         required=true,
-    *         type="string"
-    *     ),
+    *     produces={"application/json"}, 
     *     @SWG\Parameter(
     *         description="To Recieve",
     *         in="query",

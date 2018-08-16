@@ -13,13 +13,13 @@
 
 use App\Helpers\Api;
 
-// $router->get('/', function () use ($router) {
-//     $message = 'Welcome to Service Notifications';
-//     return response()->json(Api::format(200, $router->app->version(), []), 200);
-// });
+$router->get('/', function () use ($router) {
+    $message = 'Welcome to Service Notifications';
+    return response()->json(Api::format(200, $router->app->version(), []), 200);
+});
 
 $router->get('/all', 'MailController@index'); 
 
-$router->group(['middleware' => ['token_validate'],'prefix' => '/'], function() use ($router){
+// $router->group(['middleware' => ['token_validate'],'prefix' => '/'], function() use ($router){
 	$router->post('/send', 'MailController@send');
-});
+// });

@@ -29,13 +29,6 @@
                 ],
                 "parameters": [
                     {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Token Authorization",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
                         "name": "to",
                         "in": "query",
                         "description": "To Recieve",
