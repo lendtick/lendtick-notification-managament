@@ -18,53 +18,7 @@ class MailController extends Controller
     {
         $this->notifRepo = $notifRepo;
     }
-    
-    /*{
-    "to" : "lutfi.f.hidayat@gmail.com",
-    "cc" : "",
-    "subject" : "oke",
-    "body" : "oke",
-    "type" : "email",
-    "attachment" : ""
-    }*/
-    /**
-     *  @SWG\Definition(definition="measureItem", type="object",
-     *      @SWG\Property(property="to", type="string"),
-     *      @SWG\Property(property="cc", type="string"),
-     *      @SWG\Property(property="subject", type="string"),
-     *      @SWG\Property(property="body", type="string"),
-     *      @SWG\Property(property="type", type="string"),
-     *      @SWG\Property(property="attachment", type="string")
-     *  )
-     *
-
-    * @SWG\Post(
-    *     path="/send", 
-    *     description="Send Notification Lendtick",
-    *     operationId="NotifEmail_",
-    *     consumes={"application/json"},
-    *     produces={"application/json"}, 
-    *     @SWG\Parameter(
-     *         name="body",
-     *         in="body",
-     *         description="list of unit measure objects",
-     *         required=true,
-     *         @SWG\Schema(
-     *             type="array", 
-     *         @SWG\Items(ref="#/definitions/measureItem") 
-     *         )
-     *     ),
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Notifications",
-    *     tags={
-    *         "Notifications"
-    *     }
-    * )
-    **/
-
+     
     public function index(){
         try{
             $status   = 1;

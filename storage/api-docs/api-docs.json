@@ -29,49 +29,51 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
                         "in": "body",
-                        "description": "list of unit measure objects",
+                        "name": "body",
+                        "description": "",
                         "required": true,
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/measureItem"
-                            }
+                            "type": "object",
+                            "properties": { 
+                                "to": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "cc": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "subject": {
+                                    "type": "string",
+                                    "example": "Subject"
+                                },
+                                "body": {
+                                    "type": "string",
+                                    "example": "Body"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "email"
+                                },
+                                "attachment": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                            },
+                            "required": ["to", "subject","body","type","attachment"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
                         }
-                    }
-                ],
+                    }],
                 "responses": {
                     "200": {
-                        "description": "successful"
+                        "description": ""
                     }
-                }
+                },
+                "security": []
             }
+
+
         }
-    },
-    "definitions": {
-        "measureItem": {
-            "properties": {
-                "to": {
-                    "type": "string"
-                },
-                "cc": {
-                    "type": "string"
-                },
-                "subject": {
-                    "type": "string"
-                },
-                "body": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "attachment": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        }
-    }
+    }, 
 }
