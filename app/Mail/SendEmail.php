@@ -24,7 +24,7 @@ class SendEmail extends Mailable
 
         return $this->view('body')
                     ->with([ 'pesan' => $this->data['body']])
-                    ->from('lutfi@awanesia.com','Lendtick Notifications')
+                    ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
                     ->subject($this->data['subject'])
                     ->to($this->data['to'])
                     // ->with([ 'message' => $this->data['message'] ]

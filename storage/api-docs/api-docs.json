@@ -20,7 +20,7 @@
                 ],
                 "summary": "Notifications",
                 "description": "Send Notification Lendtick",
-                "operationId": "auth",
+                "operationId": "NotifEmail_",
                 "consumes": [
                     "application/json"
                 ],
@@ -29,46 +29,16 @@
                 ],
                 "parameters": [
                     {
-                        "name": "to",
-                        "in": "query",
-                        "description": "To Recieve",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "cc",
-                        "in": "query",
-                        "description": "CC email",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "subject",
-                        "in": "query",
-                        "description": "Subject Notification",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
                         "name": "body",
-                        "in": "query",
-                        "description": "Body Notification",
+                        "in": "body",
+                        "description": "list of unit measure objects",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "type",
-                        "in": "query",
-                        "description": "Type Notification",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "attachment",
-                        "in": "query",
-                        "description": "Attachment : fullpath",
-                        "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/measureItem"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -79,5 +49,29 @@
             }
         }
     },
-    "definitions": {}
+    "definitions": {
+        "measureItem": {
+            "properties": {
+                "to": {
+                    "type": "string"
+                },
+                "cc": {
+                    "type": "string"
+                },
+                "subject": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "attachment": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
 }

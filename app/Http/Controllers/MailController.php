@@ -18,56 +18,42 @@ class MailController extends Controller
     {
         $this->notifRepo = $notifRepo;
     }
+    
+    /*{
+    "to" : "lutfi.f.hidayat@gmail.com",
+    "cc" : "",
+    "subject" : "oke",
+    "body" : "oke",
+    "type" : "email",
+    "attachment" : ""
+    }*/
+    /**
+     *  @SWG\Definition(definition="measureItem", type="object",
+     *      @SWG\Property(property="to", type="string"),
+     *      @SWG\Property(property="cc", type="string"),
+     *      @SWG\Property(property="subject", type="string"),
+     *      @SWG\Property(property="body", type="string"),
+     *      @SWG\Property(property="type", type="string"),
+     *      @SWG\Property(property="attachment", type="string")
+     *  )
+     *
 
-     /**
     * @SWG\Post(
     *     path="/send", 
     *     description="Send Notification Lendtick",
-    *     operationId="auth",
+    *     operationId="NotifEmail_",
     *     consumes={"application/json"},
     *     produces={"application/json"}, 
     *     @SWG\Parameter(
-    *         description="To Recieve",
-    *         in="query",
-    *         name="to",
-    *         required=true,
-    *         type="string"
-    *     ),
-    *     @SWG\Parameter(
-    *         description="CC email",
-    *         in="query",
-    *         name="cc",
-    *         required=false,
-    *         type="string"
-    *     ), 
-     *     @SWG\Parameter(
-    *         description="Subject Notification",
-    *         in="query",
-    *         name="subject",
-    *         required=true,
-    *         type="string"
-    *     ), 
-     *     @SWG\Parameter(
-    *         description="Body Notification",
-    *         in="query",
-    *         name="body",
-    *         required=true,
-    *         type="string"
-    *     ), 
-     *     @SWG\Parameter(
-    *         description="Type Notification",
-    *         in="query",
-    *         name="type",
-    *         required=true,
-    *         type="string"
-    *     ), 
-     *     @SWG\Parameter(
-    *         description="Attachment : fullpath",
-    *         in="query",
-    *         name="attachment",
-    *         required=false,
-    *         type="string"
-    *     ), 
+     *         name="body",
+     *         in="body",
+     *         description="list of unit measure objects",
+     *         required=true,
+     *         @SWG\Schema(
+     *             type="array", 
+     *         @SWG\Items(ref="#/definitions/measureItem") 
+     *         )
+     *     ),
     *     @SWG\Response(
     *         response="200",
     *         description="successful"
@@ -77,7 +63,7 @@ class MailController extends Controller
     *         "Notifications"
     *     }
     * )
-    * */
+    **/
 
     public function index(){
         try{
