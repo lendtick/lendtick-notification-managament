@@ -19,16 +19,13 @@ class SendEmail extends Mailable
     }
 
     public function build()
-    {
-       
+    { 
 
         return $this->view('body')
                     ->with([ 'pesan' => $this->data['body']])
                     ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
                     ->subject($this->data['subject'])
-                    ->to($this->data['to'])
-                    // ->with([ 'message' => $this->data['message'] ]
-                ;
+                    ->to($this->data['to']);
         // $address = 'lutfi@awanesia.com';
         // $subject = 'This is a demo!';
         // $name = 'Jane Doe';
