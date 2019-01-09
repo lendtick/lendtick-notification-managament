@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\NotificationModel as NotificationDB;
 use Illuminate\Database\QueryException;
 
-class NotificationRepo{
+class NotificationRepo {
 	
 	public function all($columns = array('*')){
 		try {
