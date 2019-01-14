@@ -16,7 +16,7 @@
         "/send": {
             "post": {
                 "tags": [
-                    "Notifications"
+                    "Sent Email Notification"
                 ],
                 "summary": "Notifications",
                 "description": "Send Notification Lendtick",
@@ -71,9 +71,58 @@
                     }
                 },
                 "security": []
-            }
+            },
 
+        },
+        "/push": {
+            "post": {
+                "tags": [
+                    "Sent Push Notifications FCM Mobile Apps"
+                ],
+                "summary": "Notifications",
+                "description": "Send Notification Lendtick",
+                "operationId": "PushNotif_",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "message": {
+                                    "type": "string",
+                                    "example": "Ada promo menarik nih, guys.."
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "example": "Koperasi Astra"
+                                },
+                                "newsId": {
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "required": ["message", "title","newsId"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
 
         }
+
     }, 
 }

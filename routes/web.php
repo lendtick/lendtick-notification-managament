@@ -22,4 +22,5 @@ $router->get('/all', 'MailController@index');
 
 // $router->group(['middleware' => ['token_validate'],'prefix' => '/'], function() use ($router){
 	$router->post('/send', 'MailController@send');
+	$router->post('/push', 'PushNotif@index');
 // });
