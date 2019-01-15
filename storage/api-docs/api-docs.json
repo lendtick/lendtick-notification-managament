@@ -16,9 +16,9 @@
         "/send": {
             "post": {
                 "tags": [
-                    "Sent Email Notification"
+                    "Sent Email"
                 ],
-                "summary": "Notifications",
+                "summary": "Sent Email",
                 "description": "Send Notification Lendtick",
                 "operationId": "NotifEmail_",
                 "consumes": [
@@ -79,7 +79,7 @@
                 "tags": [
                     "Sent Push Notifications FCM Mobile Apps"
                 ],
-                "summary": "Notifications",
+                "summary": "Sent Push Notifications FCM Mobile Apps",
                 "description": "Send Notification Lendtick",
                 "operationId": "PushNotif_",
                 "consumes": [
@@ -111,6 +111,55 @@
                                 }
                             },
                             "required": ["message", "title","newsId"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        },
+         "/send-email-activation": {
+            "post": {
+                "tags": [
+                    "Send Email Activation include Template"
+                ],
+                "summary": "Send Email Activation include Template",
+                "description": "Send Email Activation include Template",
+                "operationId": "EmailNotif_",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "name": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "activation_link": {
+                                    "type": "string",
+                                    "example": "https://lentick-api-user-dev.azurewebsites.net/"
+                                },
+                                "to": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                }
+                            },
+                            "required": ["name","activation_link","to"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
                         }
                     }],
