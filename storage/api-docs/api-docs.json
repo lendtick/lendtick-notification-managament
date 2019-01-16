@@ -171,6 +171,55 @@
                 "security": []
             },
 
+        },
+        "/send-email-approval-hrd": {
+            "post": {
+                "tags": [
+                    "Send Email Approval HRD include Template"
+                ],
+                "summary": "Send Email Activation include Template",
+                "description": "Send Email Activation include Template",
+                "operationId": "EmailNotif_",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "name": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "approval_link": {
+                                    "type": "string",
+                                    "example": "https://lentick-api-user-dev.azurewebsites.net/"
+                                },
+                                "to": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                }
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
         }
 
     }, 
