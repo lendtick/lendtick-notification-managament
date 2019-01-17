@@ -26,6 +26,6 @@ $router->get('/all', 'MailController@index');
 
 	$router->post('/send-email-after-register', 'ActivationEmail@index');
 	$router->post('/send-email-after-payment-register', 'PaymentSuccessOnRegister@index');
-	$router->post('/send-email-approval-hrd', 'ApprovalHRDEmail@index');
-	$router->post('/send-email-approval-admin', 'AdminApprovalEmail@index');
+	$router->post('/send-email-to-approval-admin', 'ApprovalHRDEmail@index');
+	// $router->post('/send-email-approval-admin', 'AdminApprovalEmail@index');
 // });

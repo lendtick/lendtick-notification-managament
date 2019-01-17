@@ -28,28 +28,43 @@ class ApprovalHRDEmail extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'name'            	=> 'required',
-				'approval_link'    	=> 'required',
-				'to'				=> 'required|email'
+				'email_customer'	=> 'required|required',
+				'name_customer'    	=> 'required',
+				'email_admin'		=> 'required|email'
 			]);   
 
+			## send email to customer
 			$res = TemplateEmail::get(
-				env('URL_HTML_APPROVAL_TEMPLATE'),
+				env('URL_HTML_SUCCESS_APPROVAL_HRD'),
 				array(
-					'NAME' => $request->name,
-					'APPROVAL_LINK' => $request->approval_link
+					'NAME' => $request->name_customer
 				)
 			);
-
 			$data = [
-				'subject' => 'Email Approval - Koperasi Astra',
+				'subject' => 'Approval HR Sukses - Koperasi Astra',
 				'body' => $res,
-				'to' => $request->to,
+				'to' => $request->email_customer,
 				'send_date' => date('Y-m-d H:i:s')
 			];
+			$send = Mail::to($request->email_customer)->send(new SendEmail($data));
+			## end send email to customer
 
-            ## Send Email
-			$send = Mail::to($request->to)->send(new SendEmail($data));
+			## send email to kop admin
+			$res_hr = TemplateEmail::get(
+				env('URL_HTML_NEED_APPROVAL_ADMIN'),
+				array(
+					'EMAIL' => $request->email_customer
+				)
+			);
+			$data = [
+				'subject' => 'Hai Koperasi Admin, Mohon untuk melakukan Approval - Koperasi Astra - Koperasi Astra',
+				'body' => $res_hr,
+				'to' => $request->email_admin,
+				'send_date' => date('Y-m-d H:i:s')
+			];
+			$send = Mail::to($request->email_admin)->send(new SendEmail($data));
+			## end send email to kop admin
+
 			
 			$this->notifRepo->create($data);
             $status   = 1;
