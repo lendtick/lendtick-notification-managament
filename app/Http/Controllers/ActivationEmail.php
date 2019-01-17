@@ -38,7 +38,7 @@ class ActivationEmail extends Controller
 				env('URL_HTML_ACTIVATION_TEMPLATE'),
 				array(
 					'NAME' => $request->name,
-					'AMOUNT' => $request->amount,
+					'AMOUNT' => number_format($request->amount),
 					'VA_NUMBER' => $request->va_number
 				)
 			);
