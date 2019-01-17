@@ -28,22 +28,24 @@ class ActivationEmail extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'name'            	 => 'required',
-				'activation_link'    => 'required',
-				'to'				 => 'required|email'
+				'name'          => 'required',
+				'va_number'    	=> 'required',
+				'to'			=> 'required',
+				'amount'		=> 'required|integer'
 			]);   
 
 			$res = TemplateEmail::get(
 				env('URL_HTML_ACTIVATION_TEMPLATE'),
 				array(
 					'NAME' => $request->name,
-					'ACTIVATION_LINK' => $request->activation_link
+					'AMOUNT' => $request->amount,
+					'VA_NUMBER' => $request->va_number
 				)
 			);
 
 
 			$data = [
-				'subject' => 'Email Aktifasi Akun - Koperasi Astra',
+				'subject' => 'Melanjutkan ke Pembayaran - Koperasi Astra',
 				'body' => $res,
 				'to' => $request->to,
 				'send_date' => date('Y-m-d H:i:s')

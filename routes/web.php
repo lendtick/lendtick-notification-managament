@@ -24,7 +24,7 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send', 'MailController@send');
 	$router->post('/push', 'PushNotif@index');
 
-	$router->post('/send-email-activation', 'ActivationEmail@index');
+	$router->post('/send-email-after-register', 'ActivationEmail@index');
 	$router->post('/send-email-approval-hrd', 'ApprovalHRDEmail@index');
 	$router->post('/send-email-approval-admin', 'AdminApprovalEmail@index');
 // });
