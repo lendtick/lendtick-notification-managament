@@ -32,7 +32,7 @@ class PaymentSuccessOnRegister extends Controller
 				'name_customer'    	=> 'required',
 				'email_hrd'			=> 'required',
 				'amount'			=> 'required|integer',
-				'va_number'			=> 'required|integer'
+				'va_number'			=> 'required'
 			]);   
 
 			## send email to customer
