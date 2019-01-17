@@ -28,28 +28,30 @@ class AdminApprovalEmail extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'name'            	=> 'required',
-				'approval_link'    	=> 'required',
-				'to'				=> 'required|email'
+				'email_customer'    => 'required|email',
+				'name_customer'    	=> 'required',
+				'password_customer'	=> 'required',
+				'nik_customer'		=> 'required'
 			]);   
 
 			$res = TemplateEmail::get(
-				env('URL_HTML_APPROVAL_TEMPLATE'),
+				env('URL_HTML_SUCCESS_APPROVAL_ADMIN'),
 				array(
-					'NAME' => $request->name,
-					'APPROVAL_LINK' => $request->approval_link
+					'NAME' => $request->name_customer,
+					'PASSWORD' => $request->password_customer,
+					'NIK' => $request->nik_customer
 				)
 			);
 
 			$data = [
 				'subject' => 'Email Approval Admin - Koperasi Astra',
 				'body' => $res,
-				'to' => $request->to,
+				'to' => $request->email_customer,
 				'send_date' => date('Y-m-d H:i:s')
 			];
 
             ## Send Email
-			$send = Mail::to($request->to)->send(new SendEmail($data));
+			$send = Mail::to($request->email_customer)->send(new SendEmail($data));
 			
 			$this->notifRepo->create($data);
             $status   = 1;
