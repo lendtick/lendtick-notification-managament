@@ -28,4 +28,11 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-email-after-payment-register', 'PaymentSuccessOnRegister@index');
 	$router->post('/send-email-to-approval-admin', 'ApprovalHRDEmail@index');
 	$router->post('/send-email-to-success-registration', 'AdminApprovalEmail@index');
+
+	## ketika user register di reject oleh hr dan koperasi admin
+	$router->post('/send-email-to-reject-approval-hr', 'ApprovalHRDEmail@reject');
+	$router->post('/send-email-to-reject-approval-admin', 'AdminApprovalEmail@reject');
+
+
+
 // });
