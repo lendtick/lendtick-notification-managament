@@ -33,6 +33,9 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-email-to-reject-approval-hr', 'ApprovalHRDEmail@reject');
 	$router->post('/send-email-to-reject-approval-admin', 'AdminApprovalEmail@reject');
 
+	$router->post('/send-otp', 'OTPController@send');
+	$router->post('/send-otp-validate', 'OTPController@validation');
+
 
 
 // });

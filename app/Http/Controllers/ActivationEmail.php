@@ -31,7 +31,8 @@ class ActivationEmail extends Controller
 				'name'          => 'required',
 				'va_number'    	=> 'required',
 				'to'			=> 'required',
-				'amount'		=> 'required|integer'
+				'amount'		=> 'required|integer',
+				'phone_number'  => 'required'
 			]);   
 
 			$res = TemplateEmail::get(
@@ -43,7 +44,16 @@ class ActivationEmail extends Controller
 				)
 			);
 
+			#send otp
+			$send_otp = array(
+				'phone_number' 	=> $request->phone_number,
+				'campaign' 		=> 'register'
+			);
 
+			$send_otp_action = RestCurl::exec('POST',env('URL_NOTIF').'send-otp',$send_otp);
+			#end
+
+			
 			$data = [
 				'subject' => 'Melanjutkan ke Pembayaran - Koperasi Astra',
 				'body' => $res,
