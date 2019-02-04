@@ -42,13 +42,13 @@ class OTPController extends Controller
 			$deactive_otp = OTPRepo::deactive($request->phone_number, $data_deactive);
 			// end deactive
 
-			$save_otp = OTPRepo::create($insert_array);
+			// sent OTP 
+			$res = OTPRepo::create($insert_array); 
 
-			
-            $status   = 1;
-            $httpcode = 200;
-            $data     = 'Berhasil Kirim';  
-            $errorMsg = null;
+			$status   = 1;
+			$httpcode = 200;
+			$data     = 'Berhasil Kirim';  
+			$errorMsg = null;
 
 		}catch(\Exception $e){
 			$status   = 0;
@@ -65,8 +65,15 @@ class OTPController extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'otp_number'	=> 'required',
-				'phone_number'	=> 'required'
+				'otp_number'		=> 'required',
+				'phone_number'		=> 'required',
+				'email_hr'			=> 'required|email',
+				'user_id_hr'		=> 'required',
+				'nama_hr'			=> 'required',
+				'nrp_user'			=> 'required',
+				'nama_user'			=> 'required',
+				'perusahaan_user'	=> 'required',
+				'link_idcard_user'	=> 'required'
 			]); 
 
 			$res = OTPRepo::validation($request->otp_number , $request->phone_number);
@@ -79,10 +86,35 @@ class OTPController extends Controller
 				throw new \Exception("OTP Kadaluarsa, Silahkan lakukan kirim ulang kode OTP", 500);
 			}
 
-            $status   = 1;
-            $httpcode = 200;
-            $data     = 'Berhasil Kirim';  
-            $errorMsg = null;
+
+			// success 
+			$res = TemplateEmail::get(
+				env('URL_HTML_INFO_TO_HR_USER_REGISTER'),
+				array(
+					'HR_NAME'	=> $request->nama_hr,
+					'EMAIL'	=> $request->nrp_user,
+					'LINK_IDCARD_USER'	=> $request->link_idcard_user,
+					'NRP_USER'	=> $request->nrp_user,
+					'NAMA_USER'	=> $request->nama_user,
+					'PERUSAHAAN_USER'	=> $request->perusahaan_user
+				)
+			); 
+			
+			$data = [
+				'subject' => 'Hai HR, Pendaftaran pengguna baru - Koperasi Astra',
+				'body' => $res,
+				'to' => $request->email_hr,
+				'send_date' => date('Y-m-d H:i:s')
+			];
+
+            ## Send Email
+			$send = Mail::to($request->email_hr)->send(new SendEmail($data));
+
+
+			$status   = 1;
+			$httpcode = 200;
+			$data     = 'Berhasil Kirim';  
+			$errorMsg = null;
 
 		}catch(\Exception $e){
 			$status   = 0;
