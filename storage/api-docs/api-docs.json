@@ -16,7 +16,7 @@
         "/send": {
             "post": {
                 "tags": [
-                    "Sent Email"
+                    "Sent email"
                 ],
                 "summary": "Sent Email",
                 "description": "Send Notification Lendtick",
@@ -77,7 +77,7 @@
         "/push": {
             "post": {
                 "tags": [
-                    "Sent Push Notifications FCM Mobile Apps"
+                    "Sent push notification"
                 ],
                 "summary": "Sent Push Notifications FCM Mobile Apps",
                 "description": "Send Notification Lendtick",
@@ -123,13 +123,13 @@
             },
 
         },
-         "/send-email-activation": {
+         "/send-email-after-register": {
             "post": {
                 "tags": [
-                    "Send Email Activation include Template"
+                    "All about email notification + template"
                 ],
-                "summary": "Send Email Activation include Template",
-                "description": "Send Email Activation include Template",
+                "summary": "Send Email After Register",
+                "description": "Send Email After Register",
                 "operationId": "EmailNotif_",
                 "consumes": [
                     "application/json"
@@ -150,14 +150,22 @@
                                     "type": "string",
                                     "example": "Lutfi Fars Hidayat"
                                 },
-                                "activation_link": {
-                                    "type": "string",
-                                    "example": "https://lentick-api-user-dev.azurewebsites.net/"
+                                "amount": {
+                                    "type": "integer",
+                                    "example": 10000
+                                },
+                                "va_number": {
+                                    "type": "integer",
+                                    "example": 122222221122222
                                 },
                                 "to": {
                                     "type": "string",
                                     "example": "lutfi.f.hidayat@gmail.com"
-                                }
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "example": "081311529594"
+                                },
                             },
                             "required": ["name","activation_link","to"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
@@ -172,14 +180,14 @@
             },
 
         },
-        "/send-email-approval-hrd": {
+        "/send-email-after-payment-register": {
             "post": {
                 "tags": [
-                    "Send Email Approval HRD include Template"
+                    "All about email notification + template"
                 ],
-                "summary": "Send Email Activation include Template",
-                "description": "Send Email Activation include Template",
-                "operationId": "EmailNotif_",
+                "summary": "Send Email After Payment Register",
+                "description": "Send Email After Payment Register",
+                "operationId": "EmailNotif_2",
                 "consumes": [
                     "application/json"
                 ],
@@ -195,15 +203,170 @@
                         "schema": {
                             "type": "object",
                             "properties": { 
-                                "name": {
+                                "name_customer": {
                                     "type": "string",
                                     "example": "Lutfi Fars Hidayat"
                                 },
-                                "approval_link": {
+                                "email_customer": {
                                     "type": "string",
-                                    "example": "https://lentick-api-user-dev.azurewebsites.net/"
+                                    "example": "artbomberlutfi@gmail.com"
                                 },
-                                "to": {
+                                "email_hrd": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "amount": {
+                                    "type": "integer",
+                                    "example": 10000
+                                },
+                                "va_number": {
+                                    "type": "string",
+                                    "example": "1221222222222"
+                                },
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        },  
+        "/send-email-to-approval-admin": {
+            "post": {
+                "tags": [
+                    "All about email notification + template"
+                ],
+                "summary": "Send Email After Approval Admin",
+                "description": "Send Email After Approval Admin",
+                "operationId": "EmailNotif_4",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "name_customer": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "email_customer": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "email_admin": {
+                                    "type": "string",
+                                    "example": "artbomberlutfi@gmail.com"
+                                },
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+        "/send-email-to-success-registration": {
+            "post": {
+                "tags": [
+                    "All about email notification + template"
+                ],
+                "summary": "Send Email to success registration",
+                "description": "Send Email to success registration",
+                "operationId": "EmailNotif_5",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "name_customer": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "email_customer": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "nik_customer": {
+                                    "type": "string",
+                                    "example": "artbomberlutfi@gmail.com"
+                                },
+                                "password_customer": {
+                                    "type": "string",
+                                    "example": "akupadamu"
+                                },
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+        "/send-email-to-reject-approval-hr": {
+            "post": {
+                "tags": [
+                    "All REJECT about email notification + template"
+                ],
+                "summary": "send-email-to-reject-approval-hr",
+                "description": "send-email-to-reject-approval-hr",
+                "operationId": "EmailNotif_6",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "name_customer": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "email_customer": {
                                     "type": "string",
                                     "example": "lutfi.f.hidayat@gmail.com"
                                 }
@@ -220,7 +383,191 @@
                 "security": []
             },
 
-        }
+        }, 
+        "/send-email-to-reject-approval-admin": {
+            "post": {
+                "tags": [
+                    "All REJECT about email notification + template"
+                ],
+                "summary": "send-email-to-reject-approval-admin",
+                "description": "send-email-to-reject-approval-admin",
+                "operationId": "EmailNotif_7",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "name_customer": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "email_customer": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                }
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
 
+        }, 
+
+        "/send-otp": {
+            "post": {
+                "tags": [
+                    "SEND OTP"
+                ],
+                "summary": "send-otp",
+                "description": "send-otp",
+                "operationId": "EmailNotif_8",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "phone_number": {
+                                    "type": "string",
+                                    "example": "081311529594"
+                                },
+                                "campaign": {
+                                    "type": "string",
+                                    "example": "registrasi"
+                                }
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+        "/send-otp-validate": {
+            "post": {
+                "tags": [
+                    "SEND OTP"
+                ],
+                "summary": "send-otp-validate",
+                "description": "send-otp-validate",
+                "operationId": "EmailNotif_9",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "otp_number": {
+                                    "type": "string",
+                                    "example": "2431"
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "example": "081311529594"
+                                }
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+        "/send-email-nonactive-user": {
+            "post": {
+                "tags": [
+                    "Nonaktifkan user kirim ke email"
+                ],
+                "summary": "send-otp-validate",
+                "description": "send-otp-validate",
+                "operationId": "EmailNotif_10",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "email_customer": {
+                                    "type": "string",
+                                    "example": "artbomberlutfi@gmail.com"
+                                },
+                                "name_customer": {
+                                    "type": "string",
+                                    "example": "Lutfi aku sayang kamu"
+                                }
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+
+        
+        
     }, 
+
 }
