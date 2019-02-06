@@ -15,7 +15,8 @@ class OTPModel extends Model {
         'PhoneNumber',
         'CreatedAt',
         'Campaign',
-        'Status'
+        'Status',
+        'UserId'
     ];
     
     public $timestamps = false;
