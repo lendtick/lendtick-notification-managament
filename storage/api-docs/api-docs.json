@@ -460,7 +460,12 @@
                                 "campaign": {
                                     "type": "string",
                                     "example": "registrasi"
-                                }
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "example": 12345111
+                                },
+                                
                             },
                             "required": ["name","approval_link","to"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
@@ -505,7 +510,41 @@
                                 "phone_number": {
                                     "type": "string",
                                     "example": "081311529594"
-                                }
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "example": "12233"
+                                },
+                                "email_hr": {
+                                    "type": "string",
+                                    "example": "sr.saufi@gmail.com"
+                                },
+                                "user_id_hr": {
+                                    "type": "string",
+                                    "example": "1"
+                                },
+                                "nama_hr": {
+                                    "type": "string",
+                                    "example": "Lutfi"
+                                },
+                                "nrp_user": {
+                                    "type": "string",
+                                    "example": "1222333"
+                                },
+                                "nama_user": {
+                                    "type": "string",
+                                    "example": "Orang Koperasi Baru"
+                                },
+                                "perusahaan_user": {
+                                    "type": "string",
+                                    "example": "oke"
+                                },
+                                "link_idcard_user": {
+                                    "type": "string",
+                                    "example": "https://statik.tempo.co/data/2017/12/24/id_671858/671858_720.jpg"
+                                },
+
+
                             },
                             "required": ["name","approval_link","to"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
