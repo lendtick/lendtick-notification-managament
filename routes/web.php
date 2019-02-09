@@ -37,7 +37,11 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-otp-validate', 'OTPController@validation');
 
 
-	$router->post('/send-email-nonactive-user', 'NonAktifUserEmail@index');
+	$router->post('/send-sms-after-payment', 'SMSAfterReg@success');
+
+	// SMS
+	$router->post('/send-email-nonactive-user', 'NonAktifUserEmail@index'); 
+
 
 
 

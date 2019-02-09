@@ -465,7 +465,7 @@
                                     "type": "string",
                                     "example": 12345111
                                 },
-                                
+
                             },
                             "required": ["name","approval_link","to"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
@@ -604,6 +604,57 @@
             },
 
         }, 
+         "/send-sms-after-payment": {
+            "post": {
+                "tags": [
+                    "Send SMS After Register"
+                ],
+                "summary": "Send SMS After Register",
+                "description": "Send SMS After Register",
+                "operationId": "EmailNotif_12",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "phone_number": {
+                                    "type": "string",
+                                    "example": "081311529594"
+                                },
+                                "anggota_id": {
+                                    "type": "string",
+                                    "example": "lutfimove"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "akumasihsepertiyangdulu"
+                                },
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+
+
 
         
         
