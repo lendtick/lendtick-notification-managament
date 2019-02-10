@@ -211,9 +211,9 @@
                                     "type": "string",
                                     "example": "artbomberlutfi@gmail.com"
                                 },
-                                "email_hrd": {
+                                "phone_number": {
                                     "type": "string",
-                                    "example": "lutfi.f.hidayat@gmail.com"
+                                    "example": "081311529594"
                                 },
                                 "amount": {
                                     "type": "integer",
