@@ -11,13 +11,16 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Validator;
 use App\Repositories\NotificationRepo;
 use App\Helpers\TemplateEmail;
+use App\Http\Controllers\SMSAfterReg as SMS;
 
 class PaymentSuccessOnRegister extends Controller
 { 
+	private $sms;
 
-	public function __construct(NotificationRepo $notifRepo)
+	public function __construct(NotificationRepo $notifRepo , SMS $sms)
     {
         $this->notifRepo = $notifRepo;
+        $this->sms = $sms;
     }
 
 	/*
@@ -30,9 +33,10 @@ class PaymentSuccessOnRegister extends Controller
 			$this->validate($request, [
 				'email_customer'	=> 'required|email',
 				'name_customer'    	=> 'required',
-				'email_hrd'			=> 'required',
+				// 'email_hrd'			=> 'required',
 				'amount'			=> 'required|integer',
-				'va_number'			=> 'required'
+				'va_number'			=> 'required',
+				'phone_number'		=> 'required'
 			]);   
 
 			## send email to customer
@@ -45,7 +49,7 @@ class PaymentSuccessOnRegister extends Controller
 				)
 			);
 			$data = [
-				'subject' => 'Sukses Pembayaran Setelah Pendaftaran - Koperasi Astra',
+				'subject' => 'Segera Lakukan Pembayaran - Koperasi Astra',
 				'body' => $res,
 				'to' => $request->email_customer,
 				'send_date' => date('Y-m-d H:i:s')
@@ -53,22 +57,35 @@ class PaymentSuccessOnRegister extends Controller
 			$send = Mail::to($request->email_customer)->send(new SendEmail($data));
 			## end send email to customer 
 
-			## send email to HR
-			$res_hrd = TemplateEmail::get(
-				env('URL_HTML_NEED_APPROVAL_HR'),
-				array(
-					'EMAIL' => $request->email_customer,
-					'AMOUNT' => number_format($request->amount),
-					'VA_NUMBER' => $request->va_number
-				)
+			## send sms va
+			$param_send_sms = array(
+				'phone_number'	=>(string) $request->phone_number,
+				'va_number'	=> (string) $request->va_number,
+				'amount'	=> (string) $request->amount
 			);
-			$data = [
-				'subject' => 'Hai HR, Mohon untuk melakukan Approval - Koperasi Astra',
-				'body' => $res_hrd,
-				'to' => $request->email_hrd,
-				'send_date' => date('Y-m-d H:i:s')
-			];
-			$send = Mail::to($request->email_hrd)->send(new SendEmail($data));
+			$response_sms = RestCurl::exec('POST', env('URL_NOTIF').'send-sms-va-billing' , $param_send_sms, '');
+			// $response_sms = $this->sms->va($param_send_sms);
+			## end send sms va
+
+			// dd([$response_sms , @$send]);
+			
+
+			## send email to HR
+			// $res_hrd = TemplateEmail::get(
+			// 	env('URL_HTML_NEED_APPROVAL_HR'),
+			// 	array(
+			// 		'EMAIL' => $request->email_customer,
+			// 		'AMOUNT' => number_format($request->amount),
+			// 		'VA_NUMBER' => $request->va_number
+			// 	)
+			// );
+			// $data = [
+			// 	'subject' => 'Hai HR, Mohon untuk melakukan Approval - Koperasi Astra',
+			// 	'body' => $res_hrd,
+			// 	'to' => $request->email_hrd,
+			// 	'send_date' => date('Y-m-d H:i:s')
+			// ];
+			// $send = Mail::to($request->email_hrd)->send(new SendEmail($data));
 			## end email to HR
 
             ## Send Email
