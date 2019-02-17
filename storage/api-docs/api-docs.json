@@ -653,6 +653,63 @@
             },
 
         }, 
+        "/send-info-change-sallary": {
+            "post": {
+                "tags": [
+                    "Send Email to HRD Info Member Changes"
+                ],
+                "summary": "Send Email to HRD Info Member Changes",
+                "description": "Send Email to HRD Info Member Changes",
+                "operationId": "EmailNotif_12",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "email_hrd": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "customer_name": {
+                                    "type": "string",
+                                    "example": "Lutfi Fars Hidayat"
+                                },
+                                "nik": {
+                                    "type": "string",
+                                    "example": "12223444"
+                                },
+                                "member_number": {
+                                    "type": "string",
+                                    "example": "11222333444"
+                                },
+                                "attachment": {
+                                    "type": "string",
+                                    "example": "https://ims2dev.blob.core.windows.net/barcode-buy-npl/47e6a7846e489746153f8ae535b6d76a.pdf"
+                                },
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
 
 
 

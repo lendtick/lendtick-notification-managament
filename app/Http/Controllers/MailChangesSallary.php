@@ -11,28 +11,14 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Validator;
 use App\Repositories\NotificationRepo;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\TemplateEmail;
 
-class MailController extends Controller
+class MailChangesSallary extends Controller
 { 
 
     public function __construct(NotificationRepo $notifRepo)
     {
         $this->notifRepo = $notifRepo;
-    }
-     
-    public function index(){
-        try{
-            $status   = 1;
-            $httpcode = 200;
-            $data     = $this->notifRepo->all();
-            $errorMsg = null;
-        }catch(\Exception $e){
-            $status   = 0;
-            $httpcode = 400;
-            $data     = null;
-            $errorMsg = $e->getMessage();
-        }
-        return response()->json(Api::format($status, $data, $errorMsg), $httpcode);
     } 
 
     public function send(Request $request){
@@ -41,23 +27,30 @@ class MailController extends Controller
             if(empty($request->json())) throw New \Exception('Params not found', 500);
 
             $this->validate($request, [
-                'to'            => 'required|email',
-                'subject'       => 'required', 
-                'body'          => 'required',
-                'type'          => 'required'
-            ]);  
+                'email_hrd'     => 'required|email',
+                'customer_name' => 'required',
+                'nik'           => 'required',
+                'member_number' => 'required',
+                'attachment'    => 'required'
+            ]);   
 
+            ## send email to customer
+            $res = TemplateEmail::get(
+                env('URL_HTML_CHANGE_SALLARY'),
+                array(
+                    'CUSTOMER_NAME' => $request->customer_name,
+                    'NIK' => $request->nik,
+                    'MEMBER_NUMBER' => $request->member_number
+                )
+            );
             $data = [
-                'type' => $request->type,
-                'subject' => $request->subject,
-                'body' => $request->body,
-                'to' => $request->to,
-                'attachment' => !empty($request->attachment) ? $request->attachment : null,
-                'send_date' => date('Y-m-d H:i:s')
+                'subject' => 'Perubahan Gaji pada Pengguna - Koperasi Astra',
+                'body' => $res,
+                'to' => $request->email_hrd,
+                'send_date' => date('Y-m-d H:i:s'),
+                'attachment' => $request->attachment
             ];
-
-            ## Send Email
-            $send = Mail::to($request->to)->send(new SendEmail($data)); 
+            $send = Mail::to($request->email_hrd)->send(new SendEmail($data)); 
             
             $this->notifRepo->create($data);
             $status   = 1;

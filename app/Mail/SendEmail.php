@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Helpers\PutImage;
 
 class SendEmail extends Mailable
 {
@@ -20,22 +21,31 @@ class SendEmail extends Mailable
 
     public function build()
     { 
+        if (isset($this->data['attachment'])) {
 
-        return $this->view('body')
-                    ->with([ 'pesan' => $this->data['body']])
-                    ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
-                    ->subject($this->data['subject'])
-                    ->to($this->data['to']);
-        // $address = 'lutfi@awanesia.com';
-        // $subject = 'This is a demo!';
-        // $name = 'Jane Doe';
+            $ImageName = time().'.pdf';
+            $ResultPut = PutImage::save($this->data['attachment'], $ImageName);
+            if($ResultPut) $Content = base_path().'/public/'.$ImageName;
 
-        // return $this->view('oke bang')
-        //             ->from($address, $name)
-        //             ->cc($address, $name)
-        //             ->bcc($address, $name)
-        //             ->replyTo($address, $name)
-        //             ->subject($subject)
-        //             );
+
+            return $this->view('body')
+            ->with([ 'pesan' => $this->data['body']])
+            ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
+            ->subject($this->data['subject'])
+            ->to($this->data['to'])
+            ->attach($Content, array(
+                'as' => 'pdf-gaji.pdf', 
+                'mime' => 'application/pdf')
+            );  
+
+        } else { 
+
+            return $this->view('body')
+            ->with([ 'pesan' => $this->data['body']])
+            ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
+            ->subject($this->data['subject'])
+            ->to($this->data['to']);  
+        }
+        
     }
 }
