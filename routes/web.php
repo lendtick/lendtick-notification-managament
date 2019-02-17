@@ -42,8 +42,12 @@ $router->get('/all', 'MailController@index');
 
 	// SMS
 	$router->post('/send-email-nonactive-user', 'NonAktifUserEmail@index'); 
-	$router->post('/send-email-forgot-password', 'EmailForgotPassword@index'); 
+	$router->post('/send-email-forgot-password', 'EmailForgotPassword@index');
 
+
+	// mail ganti gaji 
+	$router->post('/send-info-change-sallary', 'MailChangesSallary@send');
+	
 
 
 
