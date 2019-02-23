@@ -40,6 +40,9 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-sms-after-payment', 'SMSAfterReg@success');
 	$router->post('/send-sms-va-billing', 'SMSAfterReg@va');
 
+	// sms forgot password
+	$router->post('/send-sms-forgot-password', 'SMSForgotPassword@success');
+
 	// SMS
 	$router->post('/send-email-nonactive-user', 'NonAktifUserEmail@index'); 
 	$router->post('/send-email-forgot-password', 'EmailForgotPassword@index');
