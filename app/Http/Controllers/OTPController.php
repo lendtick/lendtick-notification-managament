@@ -91,11 +91,15 @@ class OTPController extends Controller
 			$res = OTPRepo::validation($request->otp_number , $request->phone_number, $request->user_id);
 			
 			if (!$res>0) {
-				throw new \Exception("Maaf Kode OTP Salah", 500);
+				throw new \Exception("Maaf Kode OTP Salah", 400);
 			}
 
 			if (Carbon::parse($res->CreatedAt)->addMinutes(5)->toDateTimeString() < Carbon::now()->toDateTimeString()) {
-				throw new \Exception("OTP Kadaluarsa, Silahkan lakukan kirim ulang kode OTP", 500);
+				throw new \Exception("OTP Kadaluarsa, Silahkan lakukan kirim ulang kode OTP", 400);
+			}
+
+			if (!OTPRepo::attempt($request->otp_number , $request->phone_number, $request->user_id)) {
+				throw new \Exception("Percobaan OTP anda sudah lebih dari 5 kali, OTP tidak bisa digunakan lagi", 400);
 			}
 
 
@@ -125,8 +129,8 @@ class OTPController extends Controller
 
 			$status   = 1;
 			$httpcode = 200;
-			$data     = 'Berhasil Kirim';  
-			$errorMsg = null;
+			$errorMsg = 'Berhasil Kirim';  
+			$data 	  = null;
 
 		}catch(\Exception $e){
 			$status   = 0;
