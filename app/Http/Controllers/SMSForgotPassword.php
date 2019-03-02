@@ -11,10 +11,18 @@ use App\Http\Controllers\Validator;
 use App\Repositories\OTPRepo;
 use App\Helpers\TemplateEmail;
 use App\Helpers\OTP as OTPHelper;
+use App\Repositories\NotificationRepo;
+	
+
 use Carbon\Carbon;
 
 class SMSForgotPassword extends Controller
 {
+
+	public function __construct(NotificationRepo $notifRepo)
+    {
+        $this->notifRepo = $notifRepo;
+    }
 	/*
 	* send sms to register success
 	*/ 
@@ -38,6 +46,15 @@ class SMSForgotPassword extends Controller
 			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
 			$this->_curl($url);
 			// end
+
+
+			$data = [
+				'subject' => 'Forgot Password',
+				'body' => $message,
+				'to' => $phone,
+				'send_date' => date('Y-m-d H:i:s')
+			];
+			$this->notifRepo->create($data);
 
 			$status   = 1;
 			$httpcode = 200;
