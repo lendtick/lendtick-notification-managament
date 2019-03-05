@@ -104,10 +104,6 @@
                                 "title": {
                                     "type": "string",
                                     "example": "Koperasi Astra"
-                                },
-                                "newsId": {
-                                    "type": "string",
-                                    "example": ""
                                 }
                             },
                             "required": ["message", "title","newsId"],

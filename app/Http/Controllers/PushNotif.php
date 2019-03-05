@@ -25,20 +25,19 @@ class PushNotif extends Controller
 
             $this->validate($request, [
                 'message'            => 'required',
-                'title'       		 => 'required', 
-                'newsId'          	 => 'required'
+                'title'       		 => 'required'
             ]);  
 
             $post = array(
-			'to' => '/topics/wpnewsnotification',
-			'data' => array (
+			'to' => '/topics/global',
+			'notification' => array (
 				'title' => $request->title,
-				'message' => $request->message,
-				'newsId' => $request->newsId
+				'body' => $request->message
 			)
 			); 
 
 			$res = RestCurl::exec('POST' , env('URL_FCM'), $post , 'key='.$this->key_fcm);
+
 
 			$status   = 1;
 			$httpcode = 200;
