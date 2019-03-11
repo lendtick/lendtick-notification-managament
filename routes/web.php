@@ -16,13 +16,15 @@ use App\Helpers\Api;
 $router->get('/', function () use ($router) {
     $message = 'Welcome to Service Notifications';
     return response()->json(Api::format(200, $router->app->version(), []), 200);
+    // return sha1('6021'.'20190221220600'.'shared123'.'agentkopastra');
 });
 
 $router->get('/all', 'MailController@index'); 
 
 // $router->group(['middleware' => ['token_validate'],'prefix' => '/'], function() use ($router){
 	$router->post('/send', 'MailController@send');
-	$router->post('/push', 'PushNotif@index');
+	$router->post('/push', 'PushNotif@broadcast');
+	$router->post('/push-individu', 'PushNotif@individu');
 
 	$router->post('/send-email-after-register', 'ActivationEmail@index');
 	$router->post('/send-email-after-payment-register', 'PaymentSuccessOnRegister@index');

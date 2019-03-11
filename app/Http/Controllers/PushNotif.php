@@ -20,7 +20,36 @@ class PushNotif extends Controller
 		$this->key_fcm = env('KEY_FCM');
 	}
 
-	public function index(Request $request){
+
+	public function broadcast(Request $request){
+
+		try {
+
+			$body = array(
+				'title' => 'Lutfi Ngetest', 
+				'body' 	=> 'Aku padamu sayang ?',
+			);
+
+
+			$res = FCM::broadcast($body); 
+
+			if ($res) {
+				$status   = 1;
+				$httpcode = 200;
+				$data     = '';
+				$errorMsg = 'Berhasil'; 
+			}
+
+		}catch(\Exception $e){
+			$status   = 0;
+			$httpcode = 400;
+			$data     = null;
+			$errorMsg = $e->getMessage();
+		}
+		return response()->json(Api::format($status, $data, $errorMsg), $httpcode);
+	}
+
+	public function individu(Request $request){
 		try {
 
 			$this->validate($request, [
