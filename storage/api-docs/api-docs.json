@@ -77,9 +77,9 @@
         "/push": {
             "post": {
                 "tags": [
-                    "Sent push notification"
+                    "Push FCM Notification"
                 ],
-                "summary": "Sent Push Notifications FCM Mobile Apps",
+                "summary": "Broadcast Push",
                 "description": "Send Notification Lendtick",
                 "operationId": "PushNotif_",
                 "consumes": [
@@ -119,6 +119,53 @@
             },
 
         },
+
+        "/push-individu": {
+            "post": {
+                "tags": [
+                    "Push FCM Notification"
+                ],
+                "summary": "Individu Push",
+                "description": "Send Notification Lendtick",
+                "operationId": "PushNotifIndividu_",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "message": {
+                                    "type": "string",
+                                    "example": "Ada promo menarik nih, guys.."
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "example": "Koperasi Astra"
+                                }
+                            },
+                            "required": ["message", "title","newsId"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        },
+
          "/send-email-after-register": {
             "post": {
                 "tags": [
