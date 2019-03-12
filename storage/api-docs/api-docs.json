@@ -97,16 +97,16 @@
                         "schema": {
                             "type": "object",
                             "properties": { 
-                                "message": {
+                                "title": {
                                     "type": "string",
                                     "example": "Ada promo menarik nih, guys.."
                                 },
-                                "title": {
+                                "body": {
                                     "type": "string",
                                     "example": "Koperasi Astra"
                                 }
                             },
-                            "required": ["message", "title","newsId"],
+                            "required": ["body", "title"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
                         }
                     }],
@@ -143,16 +143,20 @@
                         "schema": {
                             "type": "object",
                             "properties": { 
-                                "message": {
+                                "title": {
                                     "type": "string",
                                     "example": "Ada promo menarik nih, guys.."
                                 },
-                                "title": {
+                                "body": {
                                     "type": "string",
                                     "example": "Koperasi Astra"
+                                },
+                                "id_user": {
+                                    "type": "integer",
+                                    "example": "246"
                                 }
                             },
-                            "required": ["message", "title","newsId"],
+                            "required": ["body", "title","id_user"],
                             "$schema": "http://json-schema.org/draft-04/schema#"
                         }
                     }],
