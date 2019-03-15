@@ -25,9 +25,14 @@ class PushNotif extends Controller
 
 		try {
 
+			$this->validate($request, [
+				'title'         => 'required',
+				'body'			=> 'required'
+			]);
+
 			$body = array(
-				'title' => 'Lutfi Ngetest', 
-				'body' 	=> 'Aku padamu sayang ?',
+				'title' => $request->title , 
+				'body' 	=> $request->body
 			);
 
 
@@ -53,12 +58,14 @@ class PushNotif extends Controller
 		try {
 
 			$this->validate($request, [
-				'id_user'          => 'required|integer'
+				'id_user'       => 'required|integer',
+				'title'         => 'required',
+				'body'			=> 'required'
 			]);
 
 			$body = array(
-				'title' => 'Lutfi Ngetest', 
-				'body' 	=> 'Aku padamu sayang ?',
+				'title' => $request->title , 
+				'body' 	=> $request->body
 			);
 
 
