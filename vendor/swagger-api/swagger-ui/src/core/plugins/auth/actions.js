@@ -74,29 +74,36 @@ export const authorizePassword = ( auth ) => ( { authActions } ) => {
   let { schema, name, username, password, passwordType, clientId, clientSecret } = auth
   let form = {
     grant_type: "password",
-    scope: auth.scopes.join(scopeSeparator)
+    scope: auth.scopes.join(scopeSeparator),
+    username,
+    password
   }
   let query = {}
   let headers = {}
 
-  if ( passwordType === "basic") {
-    headers.Authorization = "Basic " + btoa(username + ":" + password)
-  } else {
-    Object.assign(form, {username}, {password})
+  switch (passwordType) {
+    case "request-body":
+      setClientIdAndSecret(form, clientId, clientSecret)
+      break
 
-    if ( passwordType === "query") {
-      if ( clientId ) {
-        query.client_id = clientId
-      }
-      if ( clientSecret ) {
-        query.client_secret = clientSecret
-      }
-    } else {
+    case "basic":
       headers.Authorization = "Basic " + btoa(clientId + ":" + clientSecret)
-    }
+      break
+    default:
+      console.warn(`Warning: invalid passwordType ${passwordType} was passed, not including client id and secret`)
   }
 
   return authActions.authorizeRequest({ body: buildFormData(form), url: schema.get("tokenUrl"), name, headers, query, auth})
+}
+
+function setClientIdAndSecret(target, clientId, clientSecret) {
+  if ( clientId ) {
+    Object.assign(target, {client_id: clientId})
+  }
+
+  if ( clientSecret ) {
+    Object.assign(target, {client_secret: clientSecret})
+  }
 }
 
 export const authorizeApplication = ( auth ) => ( { authActions } ) => {
@@ -161,7 +168,8 @@ export const authorizeRequest = ( data ) => ( { fn, getConfigs, authActions, err
 
   let _headers = Object.assign({
     "Accept":"application/json, text/plain, */*",
-    "Content-Type": "application/x-www-form-urlencoded"
+    "Content-Type": "application/x-www-form-urlencoded",
+    "X-Requested-With": "XMLHttpRequest"
   }, headers)
 
   fn.fetch({

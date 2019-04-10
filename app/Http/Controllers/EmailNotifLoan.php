@@ -41,7 +41,7 @@ class EmailNotifLoan extends Controller
 			// );
 			$data = [
 				'subject' => 'Approval Pinjaman Kredit 1 - Koperasi Astra',
-				'body' => "Email to credit 1 loan number ".$request->loan_number,
+				'body' => "Email to credit 1 | loan number ".$request->loan_number,
 				'to' => $request->email_credit_one,
 				'send_date' => date('Y-m-d H:i:s')
 			];
@@ -83,13 +83,13 @@ class EmailNotifLoan extends Controller
 			// );
 			$data = [
 				'subject' => 'Approval Pinjaman Kredit 2 - Koperasi Astra',
-				'body' => "Email to credit 2 loan number ".$request->loan_number ,
+				'body' => "Email to credit 2 | loan number ".$request->loan_number ,
 				'to' => $request->email_credit_two,
 				'send_date' => date('Y-m-d H:i:s')
 			];
-			$send = Mail::to($request->email_credit_two)->send(new SendEmail($data));
-		
-			
+            $send = Mail::to($request->email_credit_two)->send(new SendEmail($data));
+            
+
 			$this->notifRepo->create($data);
             $status   = 1;
             $httpcode = 200;
@@ -125,7 +125,7 @@ class EmailNotifLoan extends Controller
 			// );
 			$data = [
 				'subject' => 'Approval Pinjaman HR',
-				'body' => "Email to HR loan number ".$request->loan_number,
+				'body' => "Email to HR | loan number ".$request->loan_number,
 				'to' => $request->email_hr,
 				'send_date' => date('Y-m-d H:i:s')
             ];
