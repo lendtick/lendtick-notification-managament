@@ -757,11 +757,69 @@
             },
 
         }, 
+        
 
+         "/send-email-to-credit-two-after-approve-credit-one": {
+            "post": {
+                "tags": [
+                    "Sent email"
+                ],
+                "summary": "send-email-to-credit-two-after-approve-credit-one",
+                "description": "send-email-to-credit-two-after-approve-credit-one",
+                "operationId": "send-email-to-credit-two-after-approve-credit-one",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "email_credit_two": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "loan_number": {
+                                    "type": "string",
+                                    "example": "1111222"
+                                },
+                                "name_customer": {
+                                    "type": "string",
+                                    "example": "lutfi ganteng"
+                                },
+                                "id_customer": {
+                                    "type": "string",
+                                    "example": "246"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "example": "approve/reject"
+                                },
+                            },
+                            "required": ["body", "title"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        },
         "/send-email-to-credit-one-after-approve-hr": {
             "post": {
                 "tags": [
-                    "Send Email Approve and Push to Customer"
+                    "Sent email"
                 ],
                 "summary": "Send Email Approve and Push to Customer",
                 "description": "Send Email Approve and Push to Customer",
