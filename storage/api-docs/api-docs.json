@@ -874,6 +874,68 @@
 
         },
 
+         "/loan-notif": {
+            "post": {
+                "tags": [
+                    "Sent email"
+                ],
+                "summary": "loan-notif",
+                "description": "loan-notif",
+                "operationId": "loan-notif",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "to": {
+                                    "type": "string",
+                                    "example": "lutfi.f.hidayat@gmail.com"
+                                },
+                                "id_loan": {
+                                    "type": "string",
+                                    "example": "1111222"
+                                },
+                                "status_workflow": {
+                                    "type": "string",
+                                    "example": "approved"
+                                },
+                                "push_member": {
+                                    "type": "string",
+                                    "example": "true"
+                                },
+                                "id_user": {
+                                    "type": "string",
+                                    "example": "122"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "example": "approve/reject"
+                                },
+                            },
+                            "required": ["body", "title"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        },
+
 
 
         
