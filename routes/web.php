@@ -49,7 +49,6 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-email-nonactive-user', 'NonAktifUserEmail@index'); 
 	$router->post('/send-email-forgot-password', 'EmailForgotPassword@index');
 
-
 	// mail ganti gaji 
 	$router->post('/send-info-change-sallary', 'MailChangesSallary@send');
 	
@@ -57,5 +56,8 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-email-to-credit-one-after-approve-hr', 'EmailNotifLoan@emailCreditOne');
 	$router->post('/send-email-to-credit-two-after-approve-credit-one', 'EmailNotifLoan@emailCreditTwo');
 	$router->post('/send-email-to-hr-after-request-loan', 'EmailNotifLoan@emailToHr');
+
+	// 
+	$router->post('/loan-notif', 'EmailNotifLoan@sendEmail');
 
 // });

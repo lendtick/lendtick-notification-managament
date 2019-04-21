@@ -23,65 +23,66 @@ class EmailNotifLoan extends Controller
 
 
 	## Email Credit 1
-	public function emailCreditOne(Request $request){
+	public function sendEmail(Request $request){
 		try{
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'email_credit_one'	=> 	'required|email',
-				'loan_number'		=>	'required',
-				'name_customer'		=>	'required',
-				'id_customer'		=>	'required',
+				'to'				=> 	'required|email',
+				'id_loan'			=>	'required',
+				'status_workflow'	=>	'required',
+				'push_member'		=>	'required',
+				'id_user'			=>  'required',
 				'status'			=>  'required'
 			]);   
 
-			if ($request->status == 'reject') {
+			if (strtolower($request->status) == 'reject') {
 
 				$res = TemplateEmail::get(
-					env('URL_HTML_FAILED_LOAN_BY_CREDIT_1'),
+					env('URL_HTML_REJECT_LOAN'),
 					array(
-						'USER' 			=> $request->name_customer,
-						'LOAN_NUMBER' 	=> $request->loan_number,
+						'LOAN_NUMBER' 	=> $request->id_loan,
 					)
 				);
 				$data = [
-					'subject' => 'Approval Pinjaman Kredit 1 - Koperasi Astra | loan number '.$request->loan_number,
+					'subject' => 'LOAN NUMBER '.$request->id_loan . ' di REJECT',
 					'body' => $res,
-					'to' => $request->email_credit_one,
+					'to' => $request->to,
 					'send_date' => date('Y-m-d H:i:s')
 				];
-				$send = Mail::to($request->email_credit_one)->send(new SendEmail($data));
+				$send = Mail::to($request->to)->send(new SendEmail($data));
 
-				$body = array(
-					'title' => 'Koperasi Astra', 
-					'body' 	=> 'Pinjaman kamu ditolak'
-				);
+				if (strtolower($request->push_member) == 'true') {
+					$body = array(
+						'title' => 'Koperasi Astra', 
+						'body' 	=> 'Pinjaman kamu ditolak'
+					);
+					$res = FCM::individu($request->id_user , $body); 
+				}
 
-				$res = FCM::individu($request->id_customer , $body); 
-
-			} elseif ($request->status == 'approve') {
+			} elseif (strtolower($request->status) == 'approve') {
 
 				$res = TemplateEmail::get(
-					env('URL_HTML_APPROVE_LOAN_BY_CREDIT_1'),
+					env('URL_HTML_APPROVE_LOAN'),
 					array(
-						'USER' 			=> $request->name_customer,
-						'LOAN_NUMBER' 	=> $request->loan_number,
+						'LOAN_NUMBER' 	=> $request->id_loan,
 					)
 				);
 				$data = [
-					'subject' => 'Approval Pinjaman Kredit 1 - Koperasi Astra | loan number '.$request->loan_number,
+					'subject' => 'Mohon untuk melakukan approval dengan nomor LOAN NUMBER :  '.$request->id_loan,
 					'body' => $res,
-					'to' => $request->email_credit_one,
+					'to' => $request->to,
 					'send_date' => date('Y-m-d H:i:s')
 				];
-				$send = Mail::to($request->email_credit_one)->send(new SendEmail($data));
+				$send = Mail::to($request->to)->send(new SendEmail($data));
 
-				$body = array(
-					'title' => 'Koperasi Astra', 
-					'body' 	=> 'Pinjaman kamu disetujui'
-				);
-
-				$res = FCM::individu($request->id_customer , $body); 
+				if (strtolower($request->push_member) == 'true') {
+					$body = array(
+						'title' => 'Koperasi Astra', 
+						'body' 	=> 'Pinjaman kamu disetujui'
+					);
+					$res = FCM::individu($request->id_user , $body); 
+				}
 				
 			} else {
 				throw New \Exception('Status Undefined', 500);
