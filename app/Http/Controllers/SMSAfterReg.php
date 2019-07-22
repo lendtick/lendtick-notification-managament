@@ -12,9 +12,16 @@ use App\Repositories\OTPRepo;
 use App\Helpers\TemplateEmail;
 use App\Helpers\OTP as OTPHelper;
 use Carbon\Carbon;
+use App\Repositories\NotificationLogResponseRepo;
 
 class SMSAfterReg extends Controller
 {
+	public function __construct(NotificationLogResponseRepo $notifLogRepo)
+    {
+        // $this->notifRepo = $notifRepo;
+        $this->notifLogRepo = $notifLogRepo;
+	}
+	
 	/*
 	* send sms to register success
 	*/ 
@@ -29,14 +36,16 @@ class SMSAfterReg extends Controller
 
 			]);
 			
-			$user_awo = env('AWO_USER');
-			$pass_awo = env('AWO_PASSWORD');
-			$sender_awo = env('AWO_SENDER');
+			$user_awo = env('AWO_USER_REG');
+			$pass_awo = env('AWO_PASSWORD_REG');
+			$sender_awo = env('AWO_SENDER_REG');
 			$phone = $request->phone_number;
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
 			$message = 'Pendaftaran dan pembayaran kamu berhasil . No Anggota : ' .$request->anggota_id. ' katasandi : '.$request->password;
-			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
-			$this->_curl($url);
+			$url = env('AWO_URL_SEND_REG')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
+			$sendSms = $this->_curl($url);
+
+			$this->notifLogRepo->create(json_encode(($sendSms)));
 			// end
 
 			$status   = 1;
@@ -65,14 +74,16 @@ class SMSAfterReg extends Controller
 
 			]);
 			
-			$user_awo = env('AWO_USER');
-			$pass_awo = env('AWO_PASSWORD');
-			$sender_awo = env('AWO_SENDER');
+			$user_awo = env('AWO_USER_REG');
+			$pass_awo = env('AWO_PASSWORD_REG');
+			$sender_awo = env('AWO_SENDER_REG');
 			$phone = $request->phone_number;
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
 			$message = 'Silahkan lakukan pembayaran dengan nomor VA : '.$request->va_number.' Total Rp.'.$request->amount;
-			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
-			$this->_curl($url);
+			$url = env('AWO_URL_SEND_REG')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
+			$sendSms = $this->_curl($url);
+
+			$this->notifLogRepo->create(json_encode(($sendSms)));
 			// end
 
 			$status   = 1;
