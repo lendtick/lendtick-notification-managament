@@ -37,13 +37,13 @@ class SMSForgotPassword extends Controller
 
 			]);
 			
-			$user_awo = env('AWO_USER');
-			$pass_awo = env('AWO_PASSWORD');
-			$sender_awo = env('AWO_SENDER');
+			$user_awo = env('AWO_USER_REG');
+			$pass_awo = env('AWO_PASSWORD_REG');
+			$sender_awo = env('AWO_SENDER_REG');
 			$phone = $request->phone_number;
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
 			$message = 'Hai '.$request->name_customer.' Berikut adalah Password baru kamu : '.$request->password . '. mohon untuk tidak memberitahu orang lain';
-			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
+			$url = env('AWO_URL_SEND_REG')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
 			$this->_curl($url);
 			// end
 
