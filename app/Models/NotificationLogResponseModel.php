@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NotificationLogResponseModel extends Model {
 
-    protected $table = 'notification_log_response';
+    protected $table = 'notification.notification_log_response';
     protected $primaryKey = 'id';
 
     protected $fillable = [

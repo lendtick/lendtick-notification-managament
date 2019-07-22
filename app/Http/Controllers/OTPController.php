@@ -55,8 +55,8 @@ class OTPController extends Controller
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
 			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=$kode&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
 			$sendSms = $this->_curl($url);
-
-			$this->notifLogRepo->create(json_encode(($sendSms)));
+			$logData = ['message' => $sendSms];
+			$this->notifLogRepo->create($logData);
 			// end
 
 			$status   = 1;

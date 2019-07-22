@@ -49,8 +49,8 @@ class SMSForgotPassword extends Controller
 			$url = env('AWO_URL_SEND_REG')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
 			
 			$sendSms = $this->_curl($url);
-
-			$this->notifLogRepo->create(json_encode(($sendSms)));
+			$logData = ['message' => $sendSms];
+			$this->notifLogRepo->create($logData);
 			// end
 
 
