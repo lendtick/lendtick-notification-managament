@@ -12,16 +12,19 @@ use App\Repositories\OTPRepo;
 use App\Helpers\TemplateEmail;
 use App\Helpers\OTP as OTPHelper;
 use App\Repositories\NotificationRepo;
+use App\Repositories\NotificationLogResponseRepo;
 	
 
 use Carbon\Carbon;
+use function GuzzleHttp\json_encode;
 
 class SMSForgotPassword extends Controller
 {
 
-	public function __construct(NotificationRepo $notifRepo)
+	public function __construct(NotificationRepo $notifRepo, NotificationLogResponseRepo $notifLogRepo)
     {
         $this->notifRepo = $notifRepo;
+        $this->notifLogRepo = $notifLogRepo;
     }
 	/*
 	* send sms to register success
@@ -37,14 +40,17 @@ class SMSForgotPassword extends Controller
 
 			]);
 			
-			$user_awo = env('AWO_USER');
-			$pass_awo = env('AWO_PASSWORD');
-			$sender_awo = env('AWO_SENDER');
+			$user_awo = env('AWO_USER_OTP');
+			$pass_awo = env('AWO_PASSWORD_OTP');
+			$sender_awo = env('AWO_SENDER_OTP');
 			$phone = $request->phone_number;
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
 			$message = 'Hai '.$request->name_customer.' Berikut adalah Password baru kamu : '.$request->password . '. mohon untuk tidak memberitahu orang lain';
 			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
-			$this->_curl($url);
+			
+			$sendSms = $this->_curl($url);
+			$logData = ['message' => $sendSms];
+			$this->notifLogRepo->create($logData);
 			// end
 
 

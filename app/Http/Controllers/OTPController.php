@@ -12,6 +12,7 @@ use App\Repositories\OTPRepo;
 use App\Helpers\TemplateEmail;
 use App\Helpers\OTP as OTPHelper;
 use Carbon\Carbon;
+use App\Repositories\NotificationLogResponseRepo;
 
 class OTPController extends Controller
 {
@@ -47,13 +48,15 @@ class OTPController extends Controller
 			$res = OTPRepo::create($insert_array); 
 
 			
-			$user_awo = env('AWO_USER');
-			$pass_awo = env('AWO_PASSWORD');
-			$sender_awo = env('AWO_SENDER');
+			$user_awo = env('AWO_USER_OTP');
+			$pass_awo = env('AWO_PASSWORD_OTP');
+			$sender_awo = env('AWO_SENDER_OTP');
 			$phone = $request->phone_number;
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
 			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=$kode&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
-			$this->_curl($url);
+			$sendSms = $this->_curl($url);
+			$logData = ['message' => $sendSms];
+			$this->notifLogRepo->create($logData);
 			// end
 
 			$status   = 1;
