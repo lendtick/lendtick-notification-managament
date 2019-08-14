@@ -49,6 +49,8 @@ $router->get('/all', 'MailController@index');
 	$router->post('/send-email-nonactive-user', 'NonAktifUserEmail@index'); 
 	$router->post('/send-email-forgot-password', 'EmailForgotPassword@index');
 
+	$router->post('v2/send-email-forgot-password', 'ForgotPasswordEmail@index');
+
 	// mail ganti gaji 
 	$router->post('/send-info-change-sallary', 'MailChangesSallary@send');
 	
