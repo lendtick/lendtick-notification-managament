@@ -30,7 +30,7 @@ class SendEmail extends Mailable
 
             return $this->view('body')
             ->with([ 'pesan' => $this->data['body']])
-            ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
+            ->from('no-reply@koperasi-astra.com','Koperasi Astra Notifications')
             ->subject($this->data['subject'])
             ->to($this->data['to'])
             ->attach($Content, array(
@@ -42,7 +42,7 @@ class SendEmail extends Mailable
 
             return $this->view('body')
             ->with([ 'pesan' => $this->data['body']])
-            ->from('no-reply@koperasi-astra.com','Lendtick Notifications')
+            ->from('no-reply@koperasi-astra.com','Koperasi Astra Notifications')
             ->subject($this->data['subject'])
             ->to($this->data['to']);  
         }
