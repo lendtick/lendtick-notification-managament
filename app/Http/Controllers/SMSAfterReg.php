@@ -80,7 +80,7 @@ class SMSAfterReg extends Controller
 			$sender_awo = env('AWO_SENDER_OTP');
 			$phone = $request->phone_number;
 			$date_send = Carbon::parse(Carbon::now())->addMinutes(-1)->format('d/m/Y H:i');
-			$message = 'Silahkan lakukan pembayaran dengan nomor VA : '.$request->va_number.' Total Rp.'.$request->amount;
+			$message = 'Silahkan lakukan pembayaran dengan nomor VA Permata : '.$request->va_number.' Total Rp.'.$request->amount;
 			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=".urlencode($message)."&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
 			$sendSms = $this->_curl($url);
 			$logData = ['message' => $sendSms];
