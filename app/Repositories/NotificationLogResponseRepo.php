@@ -16,7 +16,7 @@ class NotificationLogResponseRepo {
 		}
 	}
 
-	public function create(array $data){
+	public static function create(array $data){
 		try {
 			return NotificationDB::create($data);
 		}catch(QueryException $e){
