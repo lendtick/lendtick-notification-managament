@@ -27,6 +27,7 @@ class OTPController extends Controller
 				'phone_number'	=> 'required',
 				'user_id'		=> 'required'
 			]);   
+
 			$kode = OTPHelper::OTPNumber();
 			$insert_array = array(
 				'OTPNumber'		=> $kode,
@@ -60,8 +61,8 @@ class OTPController extends Controller
 			// end
 
 			 // notification to Email 
-			$email_to = !empty($request->profile[0]['email']) ? $request->profile[0]['email'] : '';
-			$name = !empty($request->profile[0]['name']) ? $request->profile[0]['name'] : '';
+			$email_to = !empty($request->profile['email']) ? $request->profile['email'] : '';
+			$name = !empty($request->profile['name']) ? $request->profile['name'] : '';
 			$email = [
 				"to" => $email_to,
 				"cc" => '',
