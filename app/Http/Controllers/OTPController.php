@@ -66,7 +66,7 @@ class OTPController extends Controller
 				"to" => $email_to,
 				"cc" => '',
 				"subject" => 'OTP Registrasi - Koperasi Astra Apps',
-				"body" => 'Hai ' . $profile->name . ' , ini adalah Kode OTP anda '.$kode,
+				"body" => 'Hai ' . $name . ' , ini adalah Kode OTP anda '.$kode,
 				"type" => 'email',
 				"attachment" => ''
 			];
