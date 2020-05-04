@@ -12,7 +12,7 @@ use App\Repositories\OTPRepo;
 use App\Helpers\TemplateEmail;
 use App\Helpers\OTP as OTPHelper;
 use Carbon\Carbon;
-use App\Repositories\NotificationLogResponseRepo;
+use App\Repositories\NotificationLogResponseRepo as NotifLogRepo;
 
 class OTPController extends Controller
 {
@@ -56,8 +56,22 @@ class OTPController extends Controller
 			$url = env('AWO_URL_SEND_OTP')."?user=$user_awo&pwd=$pass_awo&sender=$sender_awo&msisdn=$phone&message=$kode&description=Sms_blast&campaign=bigbike&schedule=".urlencode($date_send);
 			$sendSms = $this->_curl($url);
 			$logData = ['message' => $sendSms];
-			$this->notifLogRepo->create($logData);
+			NotifLogRepo::create($logData);
 			// end
+
+			 // notification to Email 
+			$email_to = !empty($request->profile[0]['email']) ? $request->profile[0]['email'] : '';
+			$name = !empty($request->profile[0]['name']) ? $request->profile[0]['name'] : '';
+			$email = [
+				"to" => $email_to,
+				"cc" => '',
+				"subject" => 'OTP Registrasi - Koperasi Astra Apps',
+				"body" => 'Hai ' . $profile->name . ' , ini adalah Kode OTP anda '.$kode,
+				"type" => 'email',
+				"attachment" => ''
+			];
+
+			$res_email = RestCurl::post(env('LINK_NOTIF','https://commerce-kai-notification.azurewebsites.net')."/send", $email);
 
 			$status   = 1;
 			$httpcode = 200;
