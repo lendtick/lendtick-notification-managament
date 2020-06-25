@@ -109,15 +109,18 @@ class OTPController extends Controller
 			$res = OTPRepo::validation($request->otp_number , $request->phone_number, $request->user_id);
 			
 			if (!$res>0) {
-				throw new \Exception("Maaf Kode OTP Salah", 400);
+				// throw new \Exception("Maaf Kode OTP Salah", 400);
+				return response()->json(Api::format(0, null, "Maaf Kode OTP Salah"), 400);
 			}
 
 			if (Carbon::parse($res->CreatedAt)->addMinutes(5)->toDateTimeString() < Carbon::now()->toDateTimeString()) {
-				throw new \Exception("OTP Kadaluarsa, Silahkan lakukan kirim ulang kode OTP", 400);
+				// throw new \Exception("OTP Kadaluarsa, Silahkan lakukan kirim ulang kode OTP", 400);
+				return response()->json(Api::format(0, null, "OTP Kadaluarsa, Silahkan lakukan kirim ulang kode OTP"), 400);
 			}
 
 			if (!OTPRepo::attempt($request->otp_number , $request->phone_number, $request->user_id)) {
-				throw new \Exception("Percobaan OTP anda sudah lebih dari 5 kali, OTP tidak bisa digunakan lagi", 400);
+				// throw new \Exception("Percobaan OTP anda sudah lebih dari 5 kali, OTP tidak bisa digunakan lagi", 400);
+				return response()->json(Api::format(0, null, "Percobaan OTP anda sudah lebih dari 5 kali, OTP tidak bisa digunakan lagi"), 400);
 			}
 
 
@@ -138,7 +141,7 @@ class OTPController extends Controller
 				'subject' => 'Hai HR, Pendaftaran pengguna baru - Koperasi Astra',
 				'body' => $res,
 				'to' => $request->email_hr,
-				'send_date' => date('Y-m-d H:i:s')
+				'send_date' => date('Y-m-d H:i:s') 
 			];
 
             ## Send Email
