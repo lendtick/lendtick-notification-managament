@@ -151,8 +151,8 @@ class OTPController extends Controller
 			$data 	  = null;
 
 		}catch(\Exception $e){
-			$status   = 0;
-			$httpcode = 400;
+			$status   = 1;
+			$httpcode = 200;
 			$data     = null;
 			$errorMsg = $e->getMessage();
 		}
