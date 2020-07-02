@@ -651,6 +651,56 @@
             },
 
         }, 
+        "/send-sms-va-billing": {
+            "post": {
+                "tags": [
+                    "Send VA Biller Registration"
+                ],
+                "summary": "Send VA Biller Registration",
+                "description": "Send VA Biller Registration",
+                "operationId": "smsva1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": { 
+                                "phone_number": {
+                                    "type": "string",
+                                    "example": "081311529594"
+                                },
+                                "va_number": {
+                                    "type": "string",
+                                    "example": "702500011529594"
+                                },
+                                "amount": {
+                                    "type": "string",
+                                    "example": "10000"
+                                },
+                            },
+                            "required": ["name","approval_link","to"],
+                            "$schema": "http://json-schema.org/draft-04/schema#"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": []
+            },
+
+        }, 
+
          "/send-sms-after-payment": {
             "post": {
                 "tags": [
