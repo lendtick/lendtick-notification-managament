@@ -12,7 +12,7 @@ class TemplateEmail
 			),
 		);  
 
-		$template = file_get_contents($templateName, false, stream_context_create($arrContextOptions));
+		$template = @file_get_contents($templateName, false, stream_context_create($arrContextOptions));
 		
 		foreach($variables as $key => $value)
 		{
