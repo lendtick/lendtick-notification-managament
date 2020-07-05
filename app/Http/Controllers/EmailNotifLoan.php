@@ -52,13 +52,13 @@ class EmailNotifLoan extends Controller
 				];
 				$send = Mail::to($request->to)->send(new SendEmail($data));
 
-				if (strtolower($request->push_member) == 'true') {
+				/*if (strtolower($request->push_member) == 'true') {
 					$body = array(
 						'title' => 'Koperasi Astra', 
 						'body' 	=> 'Pinjaman kamu ditolak'
 					);
 					$res = FCM::individu($request->id_user , $body); 
-				}
+				}*/
 
 			} elseif (strtolower($request->status) == 'approve') {
 
@@ -76,13 +76,13 @@ class EmailNotifLoan extends Controller
 				];
 				$send = Mail::to($request->to)->send(new SendEmail($data));
 
-				if (strtolower($request->push_member) == 'true') {
+				/*if (strtolower($request->push_member) == 'true') {
 					$body = array(
 						'title' => 'Koperasi Astra', 
 						'body' 	=> 'Pinjaman kamu disetujui'
 					);
 					$res = FCM::individu($request->id_user , $body); 
-				}
+				}*/
 				
 			} else {
 				throw New \Exception('Status Undefined', 500);
